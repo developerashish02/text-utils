@@ -6,11 +6,11 @@ import TextForm from "./components/TextForm";
 import About from "./components/About";
 import Alert from "./components/Alert";
 
+
 function App() {
 	const [alert, setAlert] = useState(null);
 	const [mode, setMode] = useState("light");
 	const [text, setText] = useState("Enable Dark Mode");
-
 	// Alert
 	const showAlert = (message, type) => {
 		setAlert({
@@ -44,10 +44,10 @@ function App() {
 				<Alert alert={alert} />
 				<Routes>
 					<Route
-						path="/"
+						exact path="/"
 						element={<TextForm mode={mode} showAlert={showAlert} />}
 					/>
-					<Route path="/about" element={<About />} />
+					<Route  exact path="/about" element={<About />} />
 				</Routes>
 			</div>
 		</BrowserRouter>
