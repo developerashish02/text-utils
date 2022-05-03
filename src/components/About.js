@@ -26,7 +26,7 @@ function About() {
 	return (
 		<div className="container " style={styles}>
 			<h2 className="my-2">About Us</h2>
-			<div className="accordion" id="accordionExample">
+			<div className="accordion" id="accordionExample"  >
 				<div className="accordion-item">
 					<h2 className="accordion-header" id="headingOne">
 						<button

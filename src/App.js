@@ -1,34 +1,52 @@
+import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import About from "./components/About";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import Alert from "./components/Alert";
+
 function App() {
+	const [alert, setAlert] = useState(null);
 	const [mode, setMode] = useState("light");
-	const [text, setText] = useState('Enable Dark Mode');
+	const [text, setText] = useState("Enable Dark Mode");
+
+	// Alert
+	const showAlert = (message, type) => {
+		setAlert({
+			msg: message,
+			type: type,
+		});
+
+		setTimeout(() => {
+			setAlert(null);
+		}, 2000)
+	};
+
+	// dark mode
 	const toggleMode = () => {
 		if (mode === "light") {
 			setMode("dark");
-			setText('Enable Light Mode');
-			document.body.style.backgroundColor = '#0f0f27';
-
+			setText("Enable Light Mode");
+			document.body.style.backgroundColor = "#0f0f27";
+			showAlert("Dark Mode has been Enabled", "success");
 		} else {
 			setMode("light");
-			setText('Enable Dark Mode')
-			document.body.style.backgroundColor = 'white';
+			setText("Disable	 Dark Mode");
+			document.body.style.backgroundColor = "white";
+			showAlert("Light Mode has been Enabled", "success");
 		}
 	};
 	return (
 		<BrowserRouter>
 			<div className="App">
-				<Navbar
-					mode={mode}
-					toggleMode={toggleMode}
-					text={text}
-				/>
+				<Navbar mode={mode} toggleMode={toggleMode} text={text} />
+				<Alert alert={alert} />
 				<Routes>
-					<Route path="/" element={<TextForm mode={mode} />} />
+					<Route
+						path="/"
+						element={<TextForm mode={mode} showAlert={showAlert} />}
+					/>
 					<Route path="/about" element={<About />} />
 				</Routes>
 			</div>

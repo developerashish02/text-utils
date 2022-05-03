@@ -5,12 +5,22 @@ function TextForm(props) {
 
 	function handleUpClick(event) {
 		const upper = text.toUpperCase();
+		if (upper === " ") {
+			props.showAlert("text not shoud be empty", "warning");
+			return;
+		}
 		setText(upper);
+		props.showAlert("Converted to uppercase 🎉", "success");
 	}
 
 	function handleLoClick() {
 		const low = text.toLowerCase();
+		if (low === " ") {
+			props.showAlert("text not shoud be empty", "warning");
+			return;
+		}
 		setText(low);
+		props.showAlert("Converted to lowercase 🔥", "success");
 	}
 
 	function handleOnChnage(e) {
@@ -19,18 +29,22 @@ function TextForm(props) {
 
 	function handleClear() {
 		setText("");
+
+		if (text === ' ') {
+			props.showAlert("Alredy Clear", "warning");
+			return;
+		}
+		props.showAlert("clear text 😊", "success");
 	}
 	return (
 		<>
-			<div className="container my-3 ">
+			<div className="container my-3  " style={{ color: props.mode === "dark" ? "white" : "#0f0f27" }}>
+				<h2>Enter the text to analyze below</h2>
 				<h3>{props.text}</h3>
-				<textarea
-					style={{
-						backgroundColor: props.mode === 'dark' ? 'gray' : 'white',
-						color: props.mode === 'dark' ? 'white' : '#0f0f27'
-					}
-					}
-					placeholder="Enter the text"
+				<textarea style={{
+					backgroundColor: props.mode === "dark" ? "gray" : "white",
+					color: props.mode === "dark" ? "white" : "#0f0f27",
+				}}
 					className="form-control"
 					id="my-box"
 					rows="8"
@@ -48,7 +62,10 @@ function TextForm(props) {
 				</button>
 			</div>
 
-			<div className="container my-2" style={{ color: props.mode === 'dark' ? 'white' : '#0f0f27' }}>
+			<div
+				className="container my-2"
+				style={{ color: props.mode === "dark" ? "white" : "#0f0f27" }}
+			>
 				<h2>Your Text Summery</h2>
 				<p>
 					{text.split(" ").length} words and {text.length}
