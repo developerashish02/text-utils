@@ -13,6 +13,7 @@ function TextForm(props) {
 		props.showAlert("Converted to uppercase 🎉", "success");
 	}
 
+	// converted to lowercase
 	function handleLoClick() {
 		const low = text.toLowerCase();
 		if (low === " ") {
@@ -23,28 +24,49 @@ function TextForm(props) {
 		props.showAlert("Converted to lowercase 🔥", "success");
 	}
 
+	// onChange this function help to  write the text in input not block input box
 	function handleOnChnage(e) {
 		setText(e.target.value);
 	}
 
+	// clear the all text
 	function handleClear() {
 		setText("");
 
-		if (text === ' ') {
+		if (text === " ") {
 			props.showAlert("Alredy Clear", "warning");
 			return;
 		}
 		props.showAlert("clear text 😊", "success");
 	}
+
+	// copy text
+	function handleCopy() {
+		const text = document.getElementById("my-box");
+		text.select();
+		navigator.clipboard.writeText(text.value);
+		props.showAlert("text copy", "success");
+	}
+
+	// remove extra space
+	const handleExtraSpaces = () => {
+		let newText = text.split(/[ ]+/);
+		setText(newText.join(" "));
+		props.showAlert("Removed Extra spaces", "success");
+	};
 	return (
 		<>
-			<div className="container my-3  " style={{ color: props.mode === "dark" ? "white" : "#0f0f27" }}>
+			<div
+				className="container my-3  "
+				style={{ color: props.mode === "dark" ? "white" : "#0f0f27" }}
+			>
 				<h2>Enter the text to analyze below</h2>
 				<h3>{props.text}</h3>
-				<textarea style={{
-					backgroundColor: props.mode === "dark" ? "gray" : "white",
-					color: props.mode === "dark" ? "white" : "#0f0f27",
-				}}
+				<textarea
+					style={{
+						backgroundColor: props.mode === "dark" ? "gray" : "white",
+						color: props.mode === "dark" ? "white" : "#0f0f27",
+					}}
 					className="form-control"
 					id="my-box"
 					rows="8"
@@ -59,6 +81,14 @@ function TextForm(props) {
 				</button>
 				<button className="btn btn-dark my-3 mx-3" onClick={handleClear}>
 					Clear Text
+				</button>
+
+				<button type="button" className="btn btn-info" onClick={handleCopy}>
+					Copy Text
+				</button>
+
+				<button type="button" className="btn btn-secondary mx-3" onClick={handleExtraSpaces}>
+					Remove Extra spaces
 				</button>
 			</div>
 
