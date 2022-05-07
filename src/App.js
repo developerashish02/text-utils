@@ -6,7 +6,6 @@ import TextForm from "./components/TextForm";
 import About from "./components/About";
 import Alert from "./components/Alert";
 
-
 function App() {
 	const [alert, setAlert] = useState(null);
 	const [mode, setMode] = useState("light");
@@ -20,7 +19,7 @@ function App() {
 
 		setTimeout(() => {
 			setAlert(null);
-		}, 2000)
+		}, 2000);
 	};
 
 	// dark mode
@@ -44,10 +43,11 @@ function App() {
 				<Alert alert={alert} />
 				<Routes>
 					<Route
-						exact path="/"
-						element={<TextForm mode={mode} showAlert={showAlert} />}
+						exact
+						path="/"
+						element={<TextForm mode={mode} showAlert={showAlert} heading = " Try TextUtils - Word Counter , Character Counter , Remove extra spaces "/>}
 					/>
-					<Route  exact path="/about" element={<About />} />
+					<Route exact path="/about" element={<About mode={mode} />} />
 				</Routes>
 			</div>
 		</BrowserRouter>
